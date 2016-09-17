@@ -1,5 +1,9 @@
 #Run Commands
 
+#Setting up your db
+Follow Professor Pinckney's guide to setting up the mysql container/folder from project 1
+<br> https://github.com/thomaspinckney3/cs4501/blob/master/Project1.md
+
 ##1. Run the mysql container
 'docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.14'
 
