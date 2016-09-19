@@ -1,0 +1,24 @@
+[
+  {
+    "pk":1,
+    "model": "jbay.shoes",
+    "fields":{
+      "shoe": "curry 1's",
+      "brand": "under armour",
+      "text": "testing",
+      "created_date": "2016-12-25",
+      "published_date": "2016-12-25"
+  }
+},
+{
+  "pk":2,
+  "model": "jbay.user",
+  "fields":{
+    "name": "Bob Smith",
+    "address": "123 Main Street",
+    "cart": "curry 1's",
+    "created_date": "2016-12-25",
+    "published_date": "2016-12-25"
+}
+}
+]
