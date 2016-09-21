@@ -10,17 +10,27 @@ from jbay.serializers import ShoeSerializer, UserSerializer
 
 
 @api_view(['GET', 'POST'])
-def shoe_list(request):
+def user_list(request):
     if request.method == 'GET':
-        queryset = shoes.objects.all()
-        serializer_class = ShoeSerializer
-        serializer = ShoeSerializer(queryset, many=True)
+        queryset = user.objects.all()
+        serializer_class = UserSerializer
+        serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
         #  return Response({'received data': request.data})
-        serializer = ShoeSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+class UserViewSet(generics.ListCreateAPIView):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = user.objects.all()
+    serializer_class = UserSerializer
