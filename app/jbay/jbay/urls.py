@@ -16,16 +16,17 @@ from django.conf.urls import include, url
 from django.contrib import admin
 # from rest_framework import routers
 from . import home, user_api, shoe_api
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 # router = routers.DefaultRouter()
 # router.register(r'shoes', views.ShoeViewSet)
 # router.register(r'users', views.UserViewSet)
-
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', "home.index", name='index'),
     url(r'^shoes/', shoe_api.shoe_list, name='shoes'),
     url(r'^users/', user_api.user_list, name='users')
-
 ]

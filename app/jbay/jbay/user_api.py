@@ -24,13 +24,3 @@ def user_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-class UserViewSet(generics.ListCreateAPIView):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = user.objects.all()
-    serializer_class = UserSerializer
