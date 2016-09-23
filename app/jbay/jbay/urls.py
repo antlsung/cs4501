@@ -20,13 +20,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
-# router = routers.DefaultRouter()
-# router.register(r'shoes', views.ShoeViewSet)
-# router.register(r'users', views.UserViewSet)
-
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', "home.index", name='index'),
     url(r'^shoes/', shoe_api.shoe_list, name='shoes'),
-    url(r'^users/', user_api.user_list, name='users')
+    url(r'^users/', user_api.user_list, name='users'),
+    url(r'^update_shoes/', shoe_api.update_shoes, name='update_shoes'),
+    url(r'^delete_shoes/', shoe_api.delete_shoes, name='delete_shoes'),
+    url(r'^update_users/', user_api.update_users, name='update_users'),
+    url(r'^delete_users/', user_api.delete_users, name='delete_users')
 ]

@@ -24,3 +24,26 @@ def user_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'POST','PUT'])
+def update_users(request):
+    if request.method == 'POST':
+
+        post_id = request.POST['id']
+        data = request.POST
+        serializer = UserSerializer(user.objects.get(id=post_id),data=data, partial=True)
+        if (serializer.is_valid()):
+            shoe = user.objects.get(pk=post_id)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response("failed")
+
+@api_view(['GET', 'POST','PUT'])
+def delete_users(request):
+    if request.method == 'POST':
+
+        post_id = request.POST['id']
+        delete_shoe = user.objects.get(id=post_id)
+        delete_shoe.delete()
+        return Response("done")
