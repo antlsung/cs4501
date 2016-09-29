@@ -1,4 +1,4 @@
-from jbay.models import shoes, user
+from jbay.models import shoes, users
 from rest_framework import serializers
 
 
@@ -10,5 +10,5 @@ class ShoeSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = user
+        model = users
         fields = ('id','name', 'address','cart','created_date','published_date')
