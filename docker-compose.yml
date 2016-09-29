@@ -16,7 +16,7 @@ exp:
       - "8002:8000"
    volumes:
       - ~/cs4501/exp:/exp
-   command: "mod_wsgi-express start-server --reload-on-changes stuff-exp/wsgi.py"
+   command: "mod_wsgi-express start-server --reload-on-changes /exp/exp/wsgi.py"
 
 web:
   image: tp33/django
@@ -26,4 +26,4 @@ web:
     - "8000:8000"
   volumes:
     - ~/cs4501/web:/web
-  command: "mod_wsgi-express start-server --reload-on-changes stuff-web/wsgi.py"
+  command: "mod_wsgi-express start-server --reload-on-changes /web/web/wsgi.py"
