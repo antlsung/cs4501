@@ -17,7 +17,7 @@ class shoes(models.Model):
     def __str__(self):
         return self.shoe
 
-class user(models.Model):
+class users(models.Model):
     name = models.TextField()
     address = models.TextField()
     cart = models.TextField()

@@ -12,7 +12,7 @@
 },
 {
   "pk":2,
-  "model": "jbay.user",
+  "model": "jbay.users",
   "fields":{
     "name": "Bob Smith",
     "address": "123 Main Street",

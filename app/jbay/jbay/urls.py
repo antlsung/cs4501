@@ -25,8 +25,12 @@ urlpatterns = [
     url(r'^$', "home.index", name='index'),
     url(r'^shoes/', shoe_api.shoe_list, name='shoes'),
     url(r'^users/', user_api.user_list, name='users'),
+    url(r'^get_shoes/', shoe_api.get_shoes, name='get_shoes'),
+    url(r'^add_shoes/', shoe_api.add_shoes, name='add_shoes'),
     url(r'^update_shoes/', shoe_api.update_shoes, name='update_shoes'),
     url(r'^delete_shoes/', shoe_api.delete_shoes, name='delete_shoes'),
+    url(r'^get_users/', user_api.get_users, name='get_users'),
+    url(r'^add_users/', user_api.add_users, name='add_users'),
     url(r'^update_users/', user_api.update_users, name='update_users'),
     url(r'^delete_users/', user_api.delete_users, name='delete_users')
 ]
