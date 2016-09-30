@@ -22,4 +22,5 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
+    url(r'^shoes', views.show_shoes, name='show_shoes').
 ]
