@@ -10,13 +10,14 @@
 
     <!-- Static Files -->
     {% load staticfiles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'secureshare/sidebar.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 
     <title>Jbay</title>
 </head>
 <body>
- {% block navbar %} {% endblock %}
 
+ {% block title %} {% endblock %}
+ {% block navbar %} {% endblock %}
  {% block content %} {% endblock %}
 
 </body>
