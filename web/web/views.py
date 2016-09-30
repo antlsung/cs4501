@@ -8,4 +8,5 @@ def home(request):
 
 def show_shoes(request):
 	if request.method == 'GET':
+		r = requests.get('http://localhost:8001/shoes')
 		return render(request, 'show_shoes.html')
