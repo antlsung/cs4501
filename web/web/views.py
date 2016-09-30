@@ -4,7 +4,9 @@ from django.template import loader
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'welcome.html')
+    test="hi"
+    shoeList=['Curry 1','NB 996','Jordan 12']
+    return render(request, 'welcome.html',{'shoeList':shoeList,'test':test})
 
 def show_shoes(request):
 	if request.method == 'GET':
