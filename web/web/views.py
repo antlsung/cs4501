@@ -4,7 +4,7 @@ from django.template import loader
 from django.shortcuts import render
 
 def home(request):
-    return render(request, 'base.html')
+    return render(request, 'welcome.html')
 
 def show_shoes(request):
 	if request.method == 'GET':
