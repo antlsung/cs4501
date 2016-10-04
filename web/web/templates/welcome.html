@@ -34,13 +34,9 @@
 {% endblock %}
 
 {% block content %}
-{{shoeList.shoe}}
-
-<table>
-<!-- {% for shoe in shoeList %} -->
-    <!-- {% if not queue.orderDate %} -->
-        <!-- <tr><td><a href="{% url 'web.views.show_shoes' %}">{{ shoe }}</a></td></tr> -->
-    <!-- {% endif %} -->
-<!-- {% endfor %} -->
+<table class="table">
+  {% for shoe in shoeList %}
+          <tr><td><a href="http://localhost:8000/shoe_detail?id={{shoe.id}}">{{ shoe.shoe }}</a></td></tr>
+  {% endfor %}
 </table>
 {% endblock %}

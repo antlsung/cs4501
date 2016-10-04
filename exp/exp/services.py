@@ -3,9 +3,9 @@ from django.http import JsonResponse
 
 def home_list(request):
     if request.method == 'GET':
-        r = requests.get('http://models-api:8000/shoes')
-        home_list = r.json()
-        return JsonResponse(home_list)
+        resp = requests.get('http://models-api:8000/shoes')
+        home_list = resp.json()
+        return JsonResponse(home_list,safe=False)
 
 def item_detail(request):
     if request.method == 'GET':
