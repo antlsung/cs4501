@@ -22,10 +22,17 @@ def shoe_list(request):
 @api_view(['GET','POST'])
 def get_shoes(request):
     if request.method == 'GET':
-        get_id = request.GET['id']
-        data = request.GET
-        serializer = ShoeSerializer(shoes.objects.get(id=get_id))
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        if request.GET['id'] != None:
+            get_id = request.GET['id']
+            data = request.GET
+            serializer = ShoeSerializer(shoes.objects.get(id=get_id))
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        # else:
+        #     get_shoe = request.GET['shoe']
+        #     get_brand = request.GET['brand']
+        #     data = request.GET
+        #     serializer = ShoeSerializer(shoes.objects.get(id=get_id))
+        #     return Response(serializer.data, status=status.HTTP_200_OK)
 
     return Response("Invalid Request",status=status.HTTP_400_BAD_REQUEST)
 

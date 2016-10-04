@@ -14,9 +14,11 @@ exp:
       - models:models-api
    ports:
       - "8002:8000"
+      - "8001"
+      - "8000"
    volumes:
       - ~/cs4501/exp:/exp
-   command: bash -c "cd /exp; mod_wsgi-express start-server --reload-on-changes /exp/exp/wsgi.py"
+   command: bash -c "pip install requests; cd /exp; mod_wsgi-express start-server --reload-on-changes /exp/exp/wsgi.py"
 
 web:
   image: tp33/django
@@ -24,6 +26,8 @@ web:
     - exp:exp-api
   ports:
     - "8000:8000"
+    - "8002"
+    - "8001"
   volumes:
     - ~/cs4501/web:/web
-  command: bash -c "cd /web; mod_wsgi-express start-server --reload-on-changes /web/web/wsgi.py"
+  command: bash -c "pip install requests; cd /web; mod_wsgi-express start-server --reload-on-changes /web/web/wsgi.py"

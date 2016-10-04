@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from . import services
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^item_detail/',services.item_detail,name="item_detail"),
 ]
