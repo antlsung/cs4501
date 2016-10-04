@@ -6,9 +6,10 @@ import requests
 
 def home(request):
     if request.method == 'GET':
-        test="hi"
-        shoeList=['Curry 1','NB 996','Jordan 12']
-        return render(request, 'welcome.html',{'shoeList':shoeList,'test':test})
+        shoeList = requests.get('http://exp-api:8000/home_list')
+        # shoeList=['Curry 1','NB996','Jordan 12']
+        return render(request, 'welcome.html',{'shoeList':shoeList.json})
+        # return render(request, 'welcome.html',{'shoeList':shoeList,'test':test})
 
 def show_shoes(request):
     if request.method == 'GET':
@@ -16,6 +17,8 @@ def show_shoes(request):
         # brand = request.GET['brand']
 
         params = {'id': id_num}
-        r = requests.get('http://exp-api:8000/item_detail',params=params)
-        return HttpResponse(r)
-        # return render(r, 'show_shoes.html')
+        shoe = requests.get('http://exp-api:8000/item_detail',params=params)
+
+        # return HttpResponse(shoe)
+
+        return render(request, 'show_shoes.html',{'shoe':shoe.json})

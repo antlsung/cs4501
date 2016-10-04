@@ -30,4 +30,4 @@ web:
     - "8001"
   volumes:
     - ~/cs4501/web:/web
-  command: bash -c "pip install requests; cd /web; mod_wsgi-express start-server --reload-on-changes /web/web/wsgi.py"
+  command: bash -c "pip install requests; pip install urllib; cd /web; mod_wsgi-express start-server --reload-on-changes /web/web/wsgi.py"

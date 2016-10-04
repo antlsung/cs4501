@@ -20,4 +20,5 @@ from . import services
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^item_detail/',services.item_detail,name="item_detail"),
+    url(r'^home_list/',services.home_list,name="home_list"),
 ]

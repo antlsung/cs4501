@@ -34,13 +34,13 @@
 {% endblock %}
 
 {% block content %}
+{{shoeList.shoe}}
 
 <table>
-{{test}}
-{% for shoe in shoeList %}
+<!-- {% for shoe in shoeList %} -->
     <!-- {% if not queue.orderDate %} -->
-        <tr><td><a href="{% url 'web.views.show_shoes' %}">{{ shoe }}</a></td></tr>
+        <!-- <tr><td><a href="{% url 'web.views.show_shoes' %}">{{ shoe }}</a></td></tr> -->
     <!-- {% endif %} -->
-{% endfor %}
+<!-- {% endfor %} -->
 </table>
 {% endblock %}
