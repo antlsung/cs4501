@@ -25,13 +25,6 @@ def home(request):
         shoe_list = []
         for shoe in shoe_json:
             shoe_list.append(shoe)
-        # return HttpResponse(shoe_list)
-        # shoeList = json.load(r.json())
-        # shoes = []
-        # for shoe in shoeList:
-        #     shoes.append(shoe)
-        # return HttpResponse(shoeList)
-        # shoeList=['Curry 1','NB996','Jordan 12']
 
         return render(request, 'welcome.html',{'shoeList':shoe_list})
         # return render(request, 'welcome.html',{'shoeList':shoeList,'test':test})

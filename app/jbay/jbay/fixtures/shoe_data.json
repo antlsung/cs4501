@@ -3,22 +3,40 @@
     "pk":1,
     "model": "jbay.shoes",
     "fields":{
-      "shoe": "curry 1's",
-      "brand": "under armour",
-      "text": "testing",
-      "created_date": "2016-12-25",
-      "published_date": "2016-12-25"
-  }
-},
+      "shoe": "Curry 1",
+      "brand": "Under Armour",
+      "text": "Lead the charge with a signature shoe from Stephen Curry that performs at an elite level",
+      "created_date": "2016-4-4",
+      "published_date": "2016-7-17"
+  }},
+  {
+    "pk":2,
+    "model": "jbay.shoes",
+    "fields":{
+      "shoe": "Kobe 11",
+      "brand": "Nike",
+      "text": "Representing Kobe Bryant’s resilient return from injuring his Achilles, this shoe delivers game-ready performance in a lightweight, low-profile package.",
+      "created_date": "2016-3-4",
+      "published_date": "2016-8-17"
+  }},
+{
+  "pk":1,
+  "model": "jbay.users",
+  "fields":{
+    "name": "Harold Smith",
+    "address": "123 Main Street",
+    "cart": "Curry 1",
+    "created_date": "2016-5-15",
+    "published_date": "2016-10-25"
+}},
 {
   "pk":2,
   "model": "jbay.users",
   "fields":{
-    "name": "Bob Smith",
-    "address": "123 Main Street",
-    "cart": "curry 1's",
-    "created_date": "2016-12-25",
-    "published_date": "2016-12-25"
-}
-}
+    "name": "Davonte Evans",
+    "address": "495 East Street",
+    "cart": "Kobe 11",
+    "created_date": "2016-6-15",
+    "published_date": "2016-10-25"
+}}
 ]
