@@ -63,6 +63,7 @@ def delete_shoes(request):
     if request.method == 'POST':
         post_id = request.POST['id']
         delete_shoe = shoes.objects.get(id=post_id)
+        deleted = delete_shoe
         delete_shoe.delete()
-        return Response("Shoe Deleted")
+        return Response("Shoe: "+str(deleted.shoe) +" (ID: #"+ str(post_id) + ") has been deleted")
     return Response("Invalid Request",status=status.HTTP_400_BAD_REQUEST)

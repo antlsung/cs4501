@@ -35,8 +35,11 @@ def show_shoes(request):
         # brand = request.GET['brand']
 
         params = {'id': id_num}
-        shoe = requests.get('http://exp-api:8000/item_detail',params=params)
-
+        shoe_req = requests.get('http://exp-api:8000/item_detail',params=params)
+        shoe = shoe_req.json()
+        # hi=json.load(shoe.json())
+        date_time = shoe['published_date'].split('T')
+        date = date_time[0]
+        time = date_time[1]
         # return HttpResponse(shoe)
-
-        return render(request, 'show_shoes.html',{'shoe':shoe.json})
+        return render(request, 'show_shoes.html',{'shoe':shoe,'date':date,'time':time})

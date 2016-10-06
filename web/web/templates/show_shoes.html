@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}
 
-<h1>Jbay</h1>
-
-<p>I got J's on my feet</p>
-
-{% endblock %}
 
 {% block navbar %}
 <div class="container-fluid">
@@ -35,15 +29,18 @@
 {% endblock %}
 {% block content %}
 
+<div class="container">
+
 <h1>{{shoe.shoe}}</h1>
 
 
 <table>
   <tr><td>Brand: {{shoe.brand}}</td></tr>
-  <tr><td>Published Date: {{shoe.published_date}}</td></tr>
+  <tr><td>Added Date: {{date}}</td></tr>
   <tr><td>Description: {{shoe.text}}</td></tr>
 
 
 </table>
+</div>
 
 {% endblock %}

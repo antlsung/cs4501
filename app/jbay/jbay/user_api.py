@@ -53,7 +53,8 @@ def update_users(request):
 def delete_users(request):
     if request.method == 'POST':
         post_id = request.POST['id']
-        delete_shoe = users.objects.get(id=post_id)
-        delete_shoe.delete()
-        return Response("Shoe Deleted")
+        delete_user = users.objects.get(id=post_id)
+        deleted = delete_user
+        delete_user.delete()
+        return Response("User: "+str(deleted.name) +" (ID: #"+ str(post_id) + ") has been deleted")
     return Response("Invalid Request",status=status.HTTP_400_BAD_REQUEST)

@@ -25,18 +25,16 @@
 
 {% endblock %}
 
-{% block title %}
 
-<h1>Jbay</h1>
-
-<p>I got J's on my feet</p>
-
-{% endblock %}
 
 {% block content %}
-<table class="table">
+
+<div class="container">
+<h3>Recently Added Shoes</h3>
+<table class="table table-hover">
   {% for shoe in shoeList %}
           <tr><td><a href="http://localhost:8000/shoe_detail?id={{shoe.id}}">{{ shoe.shoe }}</a></td></tr>
   {% endfor %}
 </table>
+</div>
 {% endblock %}
