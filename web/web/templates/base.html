@@ -9,20 +9,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <!-- Static Files -->
-    <!-- {% load static %} -->
-    <link rel="stylesheet" type="text/css" href="static/style.css" />
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'web/style.css' %}" />
 
     <title>Jbay</title>
 </head>
 <body>
 
-  {% block title %}
+ {% block title %}
+<h1> JBay </h1>
+<p> Sneaker shop for new releases of basketball shoes and retros. </p>
 
-  <h1>Jbay</h1>
-
-  <p>Sneaker shop for new releases of basketball shoes and retros.</p>
-
-  {% endblock %}
+ {% endblock %}
 
  {% block navbar %} {% endblock %}
  {% block content %} {% endblock %}
