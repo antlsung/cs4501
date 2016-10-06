@@ -14,8 +14,8 @@ def user_list(request):
         queryset = users.objects.all()
         serializer_class = UserSerializer
         serializer = UserSerializer(queryset, many=True)
-        return Response(serializer.data)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    return Response("Invalid Request", status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET','POST'])
 def get_users(request):
