@@ -3,22 +3,88 @@
     "pk":1,
     "model": "jbay.shoes",
     "fields":{
-      "shoe": "curry 1's",
-      "brand": "under armour",
-      "text": "testing",
-      "created_date": "2016-12-25",
-      "published_date": "2016-12-25"
+      "shoe": "Curry 1",
+      "brand": "Under Armour",
+      "text": "Lead the charge with a signature shoe from Stephen Curry that performs at an elite level",
+      "created_date": "2016-4-4",
+      "published_date": "2016-7-17"
+    }
+  },
+  {
+    "pk":2,
+    "model": "jbay.shoes",
+    "fields":{
+      "shoe": "Kobe 11",
+      "brand": "Nike",
+      "text": "Representing Kobe Bryant’s resilient return from injuring his Achilles, this shoe delivers game-ready performance in a lightweight, low-profile package.",
+      "created_date": "2016-3-4",
+      "published_date": "2016-8-17"
+    }
+  },
+  {
+    "pk":3,
+    "model": "jbay.shoes",
+    "fields":{
+      "shoe": "Crazylight Boost 2016",
+      "brand": "Adidas",
+      "text": "A force on the court, James Harden is internationally known for his ruthless style of play. These men's basketball shoes honor his world-class skill with limited-edition summer tour graphics. Low cut and lightweight, they feature a premium full-length boost™ midsole and a jacquard upper.",
+      "created_date": "2016-2-4",
+      "published_date": "2016-8-17"
+    }
+  },
+  {
+    "pk":4,
+    "model": "jbay.shoes",
+    "fields":{
+      "shoe": "D Rose 7",
+      "brand": "Adidas",
+      "text": "Harnessing Derrick Rose's high octane style of play, these men's basketball shoes offer the on-court speed to change the game in your favor. They have mesh in the upper for ventilation and energy-returning boost™ to keep you moving with determination and instinct like D-Rose.",
+      "created_date": "2016-2-4",
+      "published_date": "2016-8-17"
+    }
+  },
+  {
+    "pk":1,
+    "model": "jbay.users",
+    "fields":{
+      "name": "Harold Smith",
+      "address": "123 Main Street",
+      "cart": "Curry 1",
+      "created_date": "2016-5-15",
+      "published_date": "2016-10-25"
+    }
+  },
+  {
+    "pk":2,
+    "model": "jbay.users",
+    "fields":{
+      "name": "Davonte Evans",
+      "address": "495 East Street",
+      "cart": "Kobe 11",
+      "created_date": "2016-6-15",
+      "published_date": "2016-10-25"
+    }
+  },
+  {
+    "pk":3,
+    "model": "jbay.users",
+    "fields":{
+      "name": "Jackson Bauer",
+      "address": "888 Park Street",
+      "cart": "D Rose 7",
+      "created_date": "2016-5-15",
+      "published_date": "2016-10-25"
+    }
+  },
+  {
+    "pk":4,
+    "model": "jbay.users",
+    "fields":{
+      "name": "Jonathan Lee",
+      "address": "111 West Street",
+      "cart": "Kobe 11",
+      "created_date": "2016-6-15",
+      "published_date": "2016-10-25"
+    }
   }
-},
-{
-  "pk":2,
-  "model": "jbay.users",
-  "fields":{
-    "name": "Bob Smith",
-    "address": "123 Main Street",
-    "cart": "curry 1's",
-    "created_date": "2016-12-25",
-    "published_date": "2016-12-25"
-}
-}
 ]

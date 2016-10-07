@@ -6,4 +6,28 @@ models:
       - ~/cs4501/app:/app
     ports:
       - "8001:8000"
-    command: bash -c "pip install djangorestframework; /app/jbay/manage.py makemigrations; /app/jbay/manage.py migrate; /app/jbay/manage.py loaddata shoe_data.json; mod_wsgi-express start-server --reload-on-changes /app/jbay/jbay/wsgi.py"
+    command: bash -c "pip install djangorestframework;/app/jbay/manage.py loaddata shoe_data.json; /app/jbay/manage.py makemigrations; /app/jbay/manage.py migrate; mod_wsgi-express start-server --reload-on-changes /app/jbay/jbay/wsgi.py"
+
+exp:
+   image: tp33/django
+   links:
+      - models:models-api
+   ports:
+      - "8002:8000"
+      - "8001"
+      - "8000"
+   volumes:
+      - ~/cs4501/exp:/exp
+   command: bash -c "pip install requests; cd /exp; mod_wsgi-express start-server --reload-on-changes /exp/exp/wsgi.py"
+
+web:
+  image: tp33/django
+  links:
+    - exp:exp-api
+  ports:
+    - "8000:8000"
+    - "8002"
+    - "8001"
+  volumes:
+    - ~/cs4501/web:/web
+  command: bash -c "pip install requests; cd /web; mod_wsgi-express start-server --reload-on-changes /web/web/wsgi.py"
