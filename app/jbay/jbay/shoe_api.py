@@ -12,7 +12,6 @@ import json
 
 @api_view(['GET', 'POST'])
 def shoe_list(request):
-
     if request.method == 'GET':
         queryset = shoes.objects.all()
         serializer_class = ShoeSerializer
