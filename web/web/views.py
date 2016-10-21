@@ -4,6 +4,8 @@ from django.template import loader
 from django.shortcuts import render
 import requests
 import json
+from .forms import CreateUser,CreateShoe
+
 # import logging
 
 # logger = logging.getLogger("debug log")
@@ -43,3 +45,35 @@ def show_shoes(request):
         time = date_time[1]
         # return HttpResponse(shoe)
         return render(request, 'show_shoes.html',{'shoe':shoe,'date':date,'time':time})
+
+def create_user(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponse('Works!')
+
+            # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CreateUser()
+        return render(request, 'user_form.html', {'form': form})
+
+def create_shoe(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponse('Works!')
+
+            # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CreateShoe()
+        return render(request, 'shoe_form.html', {'form': form})
