@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+
+
 {% block navbar %}
 <div class="container-fluid">
 <nav class="navbar navbar-light bg-faded ">
@@ -25,20 +27,12 @@
 </div>
 
 {% endblock %}
-
 {% block content %}
 
 <div class="container">
 
-<h1>Create User</h1>
-
-<form action="" method="post">
-    <!-- {% csrf_token %} -->
-    {{ form }}
-    <input type="submit" value="Submit" />
-</form>
-
-
+<h1>Shoe Listing Added!</h1>
+{{shoe_req}}
 </div>
 
 {% endblock %}

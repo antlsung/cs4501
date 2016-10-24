@@ -1,10 +1,11 @@
 import os
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render
 import requests
 import json
 from .forms import CreateUser,CreateShoe
+from django.views.decorators.csrf import csrf_exempt,ensure_csrf_cookie
 
 # import logging
 
@@ -46,34 +47,77 @@ def show_shoes(request):
         # return HttpResponse(shoe)
         return render(request, 'show_shoes.html',{'shoe':shoe,'date':date,'time':time})
 
+@csrf_exempt
 def create_user(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
+        form = CreateUser(request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponse('Works!')
+            user_req = requests.post('http://exp-api:8000/create_user/',data=request.POST)
+            return HttpResponse(user_req)
 
             # if a GET (or any other method) we'll create a blank form
     else:
-        form = CreateUser()
-        return render(request, 'user_form.html', {'form': form})
+        form = CreateUser(auto_id='%s')
 
+    return render(request, 'user_form.html', {'form': form})
+
+@csrf_exempt
 def create_shoe(request):
+      # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
+        form = CreateShoe(request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponse('Works!')
+            shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=request.POST)
+            return HttpResponse(shoe_req)
 
-            # if a GET (or any other method) we'll create a blank form
+            return render(request, 'created_shoe.html',{'shoe_req':shoe_req})
+            return HttpResponseRedirect('/shoe_created/')
+
+    # if a GET (or any other method) we'll create a blank form
     else:
-        form = CreateShoe()
-        return render(request, 'shoe_form.html', {'form': form})
+        form = CreateShoe(auto_id='%s')
+
+    return render(request, 'shoe_form.html', {'form': form})
+
+
+    # if request.method == 'GET':
+    #     form = CreateShoe(auto_id='%s')
+    #     return render(request, 'shoe_form.html', {'form': form})
+    # return HttpResponse(request.body)
+    # shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=request.body)
+    # return HttpResponse(shoe_req)
+
+
+    #     # create a form instance and populate it with data from the request:
+    #     # form = CreateShoe(request.POST)
+    #     # return HttpResponse(request)
+    #
+    #     # return HttpResponse(request.body)
+    #     # shoe_req = requests.get('http://exp-api:8000/item_detail',params={'id':1})
+    #     shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=request.body)
+    #     return HttpResponse(shoe_req)
+    #
+    #     shoe = shoe_req.json()
+    #     # hi=json.load(shoe.json())
+    #     date_time = shoe['published_date'].split('T')
+    #     date = date_time[0]
+    #     time = date_time[1]
+    #     # return HttpResponse(shoe)
+    #     return render(request, 'show_shoes.html',{'shoe':shoe,'date':date,'time':time})
+    #
+    #
+    #
+    # else:
+
+def shoe_created(request):
+    return render(request, 'created_shoe.html')

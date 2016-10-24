@@ -27,12 +27,29 @@
 {% endblock %}
 
 {% block content %}
+<!-- <script type="text/javascript">
+    var frm = $('#submit_shoe');
+    frm.submit(function () {
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                $("#form_div").html(data);
+            },
+            // error: function(data) {
+            //     $("#MESSAGE-DIV").html("Something went wrong!");
+            // }
+        });
+        return false;
+    });
+</script> -->
 
-<div class="container">
+<div id="form_div" class="container">
 
 <h1>Add Shoe Listing</h1>
-
-<form action="/your-name/" method="post">
+<!-- action="http://exp-api:8000/create_shoe/" -->
+<form id="submit_shoe" action="" method="post">
     <!-- {% csrf_token %} -->
     {{ form }}
     <input type="submit" value="Submit" />
@@ -41,4 +58,12 @@
 
 </div>
 
+<!-- <script>
+$('#submit_shoe').submit(function () {
+  alert('hi');
+  $.post("http://exp-api:8000/create_shoe/", $("#submit_form").serialize(), function(data) {
+      alert("hi");
+  });
+});
+</script> -->
 {% endblock %}
