@@ -4,7 +4,7 @@ from django.template import loader
 from django.shortcuts import render
 import requests
 import json
-from .forms import CreateUser,CreateShoe
+from .forms import CreateUser,CreateShoe,Login
 from django.views.decorators.csrf import csrf_exempt,ensure_csrf_cookie
 
 # import logging
@@ -14,22 +14,21 @@ from django.views.decorators.csrf import csrf_exempt,ensure_csrf_cookie
 
 def home(request):
     if request.method == 'GET':
+        #All Shoes
         r = requests.get('http://exp-api:8000/home_list')
-        # logger.debug(r.json)
-
-        # return HttpResponse(r)
-        # print(r.json)
-        # return render(request, 'welcome.html',{'shoeList':r})
-        # return HttpResponse(r)
 
         shoe_json = r.json()
-        # shoe = shoe_json
-        # return HttpResponse(shoe_json)
+
         shoe_list = []
         for shoe in shoe_json:
             shoe_list.append(shoe)
-
-        return render(request, 'welcome.html',{'shoeList':shoe_list})
+        #Ordered by Recent Shoes
+        r = requests.get('http://exp-api:8000/most_recent')
+        recent_json = r.json()
+        recent = []
+        for shoe in recent_json:
+            recent.append(shoe)
+        return render(request, 'welcome.html',{'shoeList':shoe_list,'recent':recent})
         # return render(request, 'welcome.html',{'shoeList':shoeList,'test':test})
 
 def show_shoes(request):
@@ -76,9 +75,6 @@ def create_shoe(request):
         form = CreateShoe(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
             shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=request.POST)
             shoe = shoe_req.json()
             # hi=json.load(shoe.json())
@@ -94,32 +90,23 @@ def create_shoe(request):
 
     return render(request, 'shoe_form.html', {'form': form})
 
+@csrf_exempt
+def login(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CreateUser(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            # user_req = requests.post('http://exp-api:8000/create_user/',data=request.POST)
+            # user = user_req.json()
 
-    # if request.method == 'GET':
-    #     form = CreateShoe(auto_id='%s')
-    #     return render(request, 'shoe_form.html', {'form': form})
-    # return HttpResponse(request.body)
-    # shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=request.body)
-    # return HttpResponse(shoe_req)
+            return render(request, 'created_user.html',{'user':user})
 
+            # if a GET (or any other method) we'll create a blank form
+    else:
+        form = Login(auto_id='%s')
 
-    #     # create a form instance and populate it with data from the request:
-    #     # form = CreateShoe(request.POST)
-    #     # return HttpResponse(request)
-    #
-    #     # return HttpResponse(request.body)
-    #     # shoe_req = requests.get('http://exp-api:8000/item_detail',params={'id':1})
-    #     shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=request.body)
-    #     return HttpResponse(shoe_req)
-    #
-    #     shoe = shoe_req.json()
-    #     # hi=json.load(shoe.json())
-    #     date_time = shoe['published_date'].split('T')
-    #     date = date_time[0]
-    #     time = date_time[1]
-    #     # return HttpResponse(shoe)
-    #     return render(request, 'show_shoes.html',{'shoe':shoe,'date':date,'time':time})
-    #
-    #
-    #
-    # else:
+    return render(request, 'login.html', {'form': form})

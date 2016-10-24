@@ -22,11 +22,29 @@ def shoe_list(request):
 @api_view(['GET','POST'])
 def get_shoes(request):
     if request.method == 'GET':
-        if request.GET['id'] != None:
+        params = request.GET
+        if 'id' in params:
             get_id = request.GET['id']
-            data = request.GET
             serializer = ShoeSerializer(shoes.objects.get(id=get_id))
             return Response(serializer.data, status=status.HTTP_200_OK)
+        if 'brand' in params:
+            get_brand = request.GET['brand']
+            serializer = ShoeSerializer(shoes.objects.filter(brand=get_brand),many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        if 'published_date' in params:
+            get_date = request.GET['published_date']
+            serializer = ShoeSerializer(shoes.objects.order_by('-published_date'),many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        # if request.GET['id'] != None:
+        #     get_id = request.GET['id']
+        #     data = request.GET
+        #     serializer = ShoeSerializer(shoes.objects.get(id=get_id))
+        #     return Response(serializer.data, status=status.HTTP_200_OK)
+        # if request.GET['brand'] != None:
+        #     get_brand = request.GET['brand']
+        #     data = request.GET
+        #     serializer = ShoeSerializer(shoes.objects.get(brand=get_brand))
+            # return Response(serializer.data, status=status.HTTP_200_OK)
     return Response("Invalid Request",status=status.HTTP_400_BAD_REQUEST)
 
 #add multiple shoes at a time, for later, then change url to add_shoes
