@@ -58,7 +58,9 @@ def create_user(request):
             # ...
             # redirect to a new URL:
             user_req = requests.post('http://exp-api:8000/create_user/',data=request.POST)
-            return HttpResponse(user_req)
+            user = user_req.json()
+
+            return render(request, 'created_user.html',{'user':user})
 
             # if a GET (or any other method) we'll create a blank form
     else:
@@ -78,10 +80,13 @@ def create_shoe(request):
             # ...
             # redirect to a new URL:
             shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=request.POST)
-            return HttpResponse(shoe_req)
-
-            return render(request, 'created_shoe.html',{'shoe_req':shoe_req})
-            return HttpResponseRedirect('/shoe_created/')
+            shoe = shoe_req.json()
+            # hi=json.load(shoe.json())
+            date_time = shoe['published_date'].split('T')
+            date = date_time[0]
+            time = date_time[1]
+            # return HttpResponse(shoe)
+            return render(request, 'created_shoe.html',{'shoe':shoe,'date':date,'time':time})
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -118,6 +123,3 @@ def create_shoe(request):
     #
     #
     # else:
-
-def shoe_created(request):
-    return render(request, 'created_shoe.html')
