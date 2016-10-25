@@ -50,6 +50,7 @@
       "name": "Harold Smith",
       "address": "123 Main Street",
       "cart": "Curry 1",
+      "password":"harold1",
       "created_date": "2016-5-15",
       "published_date": "2016-10-25"
     }
@@ -61,6 +62,7 @@
       "name": "Davonte Evans",
       "address": "495 East Street",
       "cart": "Kobe 11",
+      "password":"harold1",
       "created_date": "2016-6-15",
       "published_date": "2016-10-25"
     }
@@ -72,6 +74,7 @@
       "name": "Jackson Bauer",
       "address": "888 Park Street",
       "cart": "D Rose 7",
+      "password":"harold1",
       "created_date": "2016-5-15",
       "published_date": "2016-10-25"
     }
@@ -83,6 +86,7 @@
       "name": "Jonathan Lee",
       "address": "111 West Street",
       "cart": "Kobe 11",
+      "password":"harold1",
       "created_date": "2016-6-15",
       "published_date": "2016-10-25"
     }

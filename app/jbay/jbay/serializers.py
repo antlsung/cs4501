@@ -11,4 +11,4 @@ class ShoeSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = users
-        fields = ('id','name', 'address','cart','created_date','published_date')
+        fields = ('id','name', 'address','password','cart','created_date','published_date')

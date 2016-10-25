@@ -31,7 +31,7 @@ def home(request):
         return render(request, 'welcome.html',{'shoeList':shoe_list,'recent':recent})
         # return render(request, 'welcome.html',{'shoeList':shoeList,'test':test})
 
-def show_shoes(request):
+def show_shoe(request):
     if request.method == 'GET':
         id_num = request.GET['id']
         # brand = request.GET['brand']
@@ -45,6 +45,19 @@ def show_shoes(request):
         time = date_time[1]
         # return HttpResponse(shoe)
         return render(request, 'show_shoes.html',{'shoe':shoe,'date':date,'time':time})
+
+
+def show_user(request):
+    if request.method == 'GET':
+        id_num = request.GET['id']
+        # brand = request.GET['brand']
+
+        params = {'id': id_num}
+        user_req = requests.get('http://exp-api:8000/user_detail',params=params)
+        user = user_req.json()
+        # return HttpResponse(shoe)
+        return render(request, 'show_user.html',{'user':user})
+
 
 @csrf_exempt
 def create_user(request):

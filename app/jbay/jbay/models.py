@@ -21,6 +21,7 @@ class users(models.Model):
     name = models.TextField()
     address = models.TextField()
     cart = models.TextField()
+    password = models.TextField(default="")
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(

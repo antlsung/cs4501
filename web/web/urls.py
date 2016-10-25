@@ -23,7 +23,8 @@ from django.views.decorators.csrf import csrf_exempt
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
-    url(r'^shoe_detail', views.show_shoes, name='show_shoes'),
+    url(r'^shoe_detail', views.show_shoe, name='show_shoes'),
+    url(r'^user_detail', views.show_user, name='show_shoes'),
     url(r'^create_user/', views.create_user, name='create_user'),
     url(r'^create_shoe/',  views.create_shoe, name='create_shoe'),
     url(r'^login',  views.login, name='login'),
