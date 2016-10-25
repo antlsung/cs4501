@@ -3,10 +3,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
-
+from django.contrib.auth import hashers
 from django.http import Http404,HttpResponse
 from rest_framework import authentication, permissions
 from jbay.serializers import UserSerializer
+import os
+import hmac
+import settings
 
 @api_view(['GET', 'POST'])
 def user_list(request):
@@ -38,6 +41,9 @@ def get_users(request):
 #add multiple users at a time, for later, then change url to add_users
 @api_view(['GET','POST'])
 def add_users(request):
+
+    hash_pass = hashers.make_password(request.data['password'])
+    request.data['password'] = hash_pass
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -66,3 +72,17 @@ def delete_users(request):
         delete_user.delete()
         return Response("User: "+str(deleted.name) +" (ID: #"+ str(post_id) + ") has been deleted")
     return Response("Invalid Request",status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','POST'])
+def check_password(request):
+    if request.method == 'POST':
+        # return HttpResponse("in models layer check_password func")
+        post_username = request.POST['username']
+        post_password = request.POST['password']
+        user = users.objects.get(name=post_username)
+        hash_pass = hashers.make_password(post_password)
+        # return HttpResponse(user.password + " " + hash_pass)
+        if user.password == post_password:
+            authenticator = hmac.new(key=settings.SECRET_KEY.encode('utf-8'), msg=os.urandom(32),
+                                     digestmod='sha256').hexdigest()
+            return authenticator
