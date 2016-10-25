@@ -110,7 +110,7 @@ def create_shoe(request):
 @csrf_exempt
 def login(request):
     if request.method == 'POST':
-        print("in web layer login func")
+
         # create a form instance and populate it with data from the request:
         form = Login(request.POST)
         # check whether it's valid:

@@ -67,9 +67,10 @@ def create_shoe(request):
         return JsonResponse(shoe_detail)
 
 from django.http import HttpResponse,HttpResponseRedirect
+
 def login(request):
     if request.method == 'POST':
-        return HttpResponse("exp layer: " + request.POST)
+        # return HttpResponse("exp layer")
         r = requests.post('http://models-api:8000/check_password/', data=request.POST)
-        authenticator = r.json()
-        return JsonResponse(authenticator)
+        # authenticator = r.json()
+        return HttpResponse(r)
