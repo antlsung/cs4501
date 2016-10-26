@@ -34,7 +34,7 @@ class users(models.Model):
 
 class Authenticator(models.Model):
     authenticator = models.CharField(max_length=100, primary_key=True, default="")
-    user = models.CharField(max_length=30)
+    user_id = models.CharField(max_length=30)
     date_created = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):

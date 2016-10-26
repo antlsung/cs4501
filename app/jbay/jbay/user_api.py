@@ -88,10 +88,9 @@ def check_password(request):
                                          digestmod='sha256').hexdigest()
             data = {"authenticator":authenticator, "user_id":post_username}
             serializer = AuthenticatorSerializer(data=data, partial=True)
-            # return HttpResponse("hi")
             if serializer.is_valid():
                 serializer.save()
-                return HttpResponse("valid: " + authenticator)
+                return HttpResponse(authenticator)
             return HttpResponse("serializer not valid: " + serializer.errors)
 
         else:
