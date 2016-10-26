@@ -22,10 +22,8 @@ class users(models.Model):
     password = models.TextField(default="")
     address = models.TextField()
     cart = models.TextField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    published_date = models.DateTimeField(
-            default=timezone.now)
+    created_date = models.DateTimeField(default=timezone.now)
+    published_date = models.DateTimeField(default=timezone.now)
 
     def publish(self):
         self.published_date = timezone.now()
@@ -36,8 +34,8 @@ class users(models.Model):
 
 class Authenticator(models.Model):
     authenticator = models.CharField(max_length=100, primary_key=True, default="")
-    user_id = models.OneToOneField(users)
-    date_created = models.DateTimeField(default=timezone.now)
+    user = models.CharField(max_length=30)
+    date_created = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return self.authenticator
