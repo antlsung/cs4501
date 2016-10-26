@@ -1,4 +1,4 @@
-from jbay.models import shoes
+from jbay.models import shoes, Authenticator
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, status
@@ -7,7 +7,6 @@ from rest_framework.decorators import api_view
 from django.http import Http404,HttpResponse, QueryDict
 from rest_framework import authentication, permissions
 from jbay.serializers import ShoeSerializer
-import json
 
 
 @api_view(['GET', 'POST'])
@@ -22,10 +21,22 @@ def shoe_list(request):
 @api_view(['GET','POST'])
 def get_shoes(request):
     if request.method == 'GET':
-        if request.GET['id'] != None:
+        params = request.GET
+        if 'id' in params:
             get_id = request.GET['id']
-            data = request.GET
             serializer = ShoeSerializer(shoes.objects.get(id=get_id))
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        if 'brand' in params:
+            get_brand = request.GET['brand']
+            serializer = ShoeSerializer(shoes.objects.filter(brand=get_brand),many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        if 'shoe' in params:
+            get_shoe = request.GET['shoe']
+            serializer = ShoeSerializer(shoes.objects.filter(shoe=get_shoe),many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        if 'published_date' in params:
+            get_date = request.GET['published_date']
+            serializer = ShoeSerializer(shoes.objects.order_by('-published_date'),many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     return Response("Invalid Request",status=status.HTTP_400_BAD_REQUEST)
 
@@ -33,10 +44,15 @@ def get_shoes(request):
 @api_view(['GET','POST'])
 def add_shoes(request):
     if request.method == 'POST':
-        serializer = ShoeSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        cookie = request.POST['auth']
+        db_cookie = Authenticator.objects.get(authenticator=cookie)
+        if db_cookie:
+            serializer = ShoeSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response("Authenticator not found",status=status.HTTP_400_BAD_REQUEST)
     return Response("Invalid Request",status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET','POST'])

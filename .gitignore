@@ -62,3 +62,6 @@ target/
 
 # PyCharm stuff
 .idea/
+
+#migrations
+app/jbay/jbay/migrations

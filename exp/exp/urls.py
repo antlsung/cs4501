@@ -15,10 +15,22 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
+
 from . import services
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^item_detail/',services.item_detail,name="item_detail"),
+    url(r'^user_detail/',services.user_detail,name="user_detail"),
     url(r'^home_list/',services.home_list,name="home_list"),
+    url(r'^most_recent/',csrf_exempt(services.most_recent),name="recent_shoes"),
+    url(r'^create_user/',csrf_exempt(services.create_user),name="create_user"),
+    url(r'^create_shoe/',csrf_exempt(services.create_shoe),name="create_shoe"),
+    url(r'^delete_shoe/',csrf_exempt(services.delete_shoe),name="delete_shoe"),
+    url(r'^delete_user/',csrf_exempt(services.delete_user),name="delete_user"),
+    url(r'^login/',csrf_exempt(services.login),name="login"),
+    url(r'^logout/', csrf_exempt(services.logout), name="logout"),
+    url(r'^logged_in/', csrf_exempt(services.logged_in), name="logged_in"),
+
 ]

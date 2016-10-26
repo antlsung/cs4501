@@ -32,5 +32,8 @@ urlpatterns = [
     url(r'^get_users/', user_api.get_users, name='get_users'),
     url(r'^add_users/', user_api.add_users, name='add_users'),
     url(r'^update_users/', user_api.update_users, name='update_users'),
-    url(r'^delete_users/', user_api.delete_users, name='delete_users')
+    url(r'^delete_users/', user_api.delete_users, name='delete_users'),
+    url(r'^check_password/',user_api.check_password, name='check_password'),
+    url(r'^logout/',user_api.logout, name='logout'),
+    url(r'^logged_in/', user_api.logged_in, name='logged_in')
 ]
