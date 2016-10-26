@@ -96,7 +96,7 @@ def create_shoe(request):
             data = request.POST.copy()
             data["auth"] = auth
             shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=data)
-            return HttpResponse(shoe_req)
+            # return HttpResponse(shoe_req)
             shoe = shoe_req.json()
             # hi=json.load(shoe.json())
             date_time = shoe['published_date'].split('T')
@@ -135,3 +135,8 @@ def login(request):
         form = Login(auto_id='%s')
 
     return render(request, 'login.html', {'form': form})
+
+@csrf_exempt
+def logout(request):
+    if request.method == 'POST':
+        auth = request.COOKIES.get("auth")

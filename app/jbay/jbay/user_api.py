@@ -41,10 +41,10 @@ def get_users(request):
 #add multiple users at a time, for later, then change url to add_users
 @api_view(['GET','POST'])
 def add_users(request):
-
     hash_pass = hashers.make_password(request.data['password'])
-    request.data['password'] = hash_pass
-    serializer = UserSerializer(data=request.data)
+    data=request.data.copy()
+    data['password'] = hash_pass
+    serializer = UserSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -95,3 +95,9 @@ def check_password(request):
 
         else:
             return HttpResponse("Invalid password")
+
+@api_view(['POST'])
+def delete_authenticator(request):
+    if request.method == 'POST':
+        auth = request.POST['auth']
+        Authenticator.objects.get(authenticator=auth).delete()
