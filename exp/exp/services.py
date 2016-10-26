@@ -77,3 +77,13 @@ def login(request):
         authenticator = requests.post('http://models-api:8000/check_password/', data=request.POST)
         # authenticator = r.json()
         return HttpResponse(authenticator)
+
+def logout(request):
+    if request.method == 'POST':
+        r = requests.post('http://models-api:8000/logout/',data=request.POST)
+        return HttpResponse(r)
+
+def logged_in(request):
+    if request.method == 'POST':
+        r = requests.post('http://models-api:8000/logged_in/', data=request.POST)
+        return HttpResponse(r)

@@ -97,7 +97,22 @@ def check_password(request):
             return HttpResponse("Invalid password")
 
 @api_view(['POST'])
-def delete_authenticator(request):
+def logout(request):
     if request.method == 'POST':
         auth = request.POST['auth']
         Authenticator.objects.get(authenticator=auth).delete()
+        return Response("Authenticator deleted", status=status.HTTP_200_OK)
+    return Response("Authenticator not deleted", status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def logged_in(request):
+    if request.method == 'POST':
+        auth = request.POST['auth']
+        try:
+            logged_in = Authenticator.objects.get(authenticator=auth)
+            if logged_in:
+                return HttpResponse(True)
+            else:
+                return HttpResponse(False)
+        except:
+            return HttpResponse(False)

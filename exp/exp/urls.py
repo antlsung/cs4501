@@ -30,5 +30,7 @@ urlpatterns = [
     url(r'^delete_shoe/',csrf_exempt(services.delete_shoe),name="delete_shoe"),
     url(r'^delete_user/',csrf_exempt(services.delete_user),name="delete_user"),
     url(r'^login/',csrf_exempt(services.login),name="login"),
+    url(r'^logout/', csrf_exempt(services.logout), name="logout"),
+    url(r'^logged_in/', csrf_exempt(services.logged_in), name="logged_in"),
 
 ]
