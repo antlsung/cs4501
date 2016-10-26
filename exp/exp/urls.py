@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^create_shoe/',csrf_exempt(services.create_shoe),name="create_shoe"),
     url(r'^delete_shoe/',csrf_exempt(services.delete_shoe),name="delete_shoe"),
     url(r'^delete_user/',csrf_exempt(services.delete_user),name="delete_user"),
+    url(r'^login/',csrf_exempt(services.login),name="login"),
 
 ]

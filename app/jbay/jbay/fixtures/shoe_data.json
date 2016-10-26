@@ -48,9 +48,9 @@
     "model": "jbay.users",
     "fields":{
       "name": "Harold Smith",
+      "password":"pbkdf2_sha256$20000$0sNrukA5skBw$jgJVJuacH55D2RqxAl/Sz6EJDEKs93niIM9h4zZk9es=",
       "address": "123 Main Street",
       "cart": "Curry 1",
-      "password":"harold1",
       "created_date": "2016-5-15",
       "published_date": "2016-10-25"
     }
@@ -60,9 +60,9 @@
     "model": "jbay.users",
     "fields":{
       "name": "Davonte Evans",
+      "password": "davonte1",
       "address": "495 East Street",
       "cart": "Kobe 11",
-      "password":"harold1",
       "created_date": "2016-6-15",
       "published_date": "2016-10-25"
     }
@@ -72,9 +72,9 @@
     "model": "jbay.users",
     "fields":{
       "name": "Jackson Bauer",
+      "password": "jackson1",
       "address": "888 Park Street",
       "cart": "D Rose 7",
-      "password":"harold1",
       "created_date": "2016-5-15",
       "published_date": "2016-10-25"
     }
@@ -84,9 +84,9 @@
     "model": "jbay.users",
     "fields":{
       "name": "Jonathan Lee",
+      "password": "jonathan1",
       "address": "111 West Street",
       "cart": "Kobe 11",
-      "password":"harold1",
       "created_date": "2016-6-15",
       "published_date": "2016-10-25"
     }
