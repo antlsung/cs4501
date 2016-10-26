@@ -18,9 +18,8 @@ def home(request):
         auth = request.COOKIES.get("auth")
         data = {"auth": auth}
         logged_in = requests.post('http://exp-api:8000/logged_in/', data=data)
-        # return HttpResponse(logged_in)
+        login_bool = logged_in.json()
 
-        #All Shoes
         r = requests.get('http://exp-api:8000/home_list')
 
         shoe_json = r.json()
@@ -34,7 +33,7 @@ def home(request):
         recent = []
         for shoe in recent_json:
             recent.append(shoe)
-        return render(request, 'welcome.html',{'shoeList':shoe_list,'recent':recent,'logged_in':logged_in})
+        return render(request, 'welcome.html',{'shoeList':shoe_list,'recent':recent,'login':login_bool})
         # return render(request, 'welcome.html',{'shoeList':shoeList,'test':test})
 
 def show_shoe(request):
@@ -53,7 +52,7 @@ def show_shoe(request):
         date = date_time[0]
         time = date_time[1]
         # return HttpResponse(shoe)
-        return render(request, 'show_shoes.html',{'shoe':shoe,'date':date,'time':time,'logged_in':logged_in})
+        return render(request, 'show_shoes.html',{'shoe':shoe,'date':date,'time':time,'logged_in':logged_in.content})
 
 
 def show_user(request):
@@ -69,7 +68,7 @@ def show_user(request):
         user_req = requests.get('http://exp-api:8000/user_detail',params=params)
         user = user_req.json()
         # return HttpResponse(shoe)
-        return render(request, 'show_user.html',{'user':user,'logged_in':logged_in})
+        return render(request, 'show_user.html',{'user':user,'logged_in':logged_in.content})
 
 
 @csrf_exempt
@@ -93,7 +92,7 @@ def create_user(request):
             user_req = requests.post('http://exp-api:8000/create_user/',data=data)
             user = user_req.json()
 
-            return render(request, 'created_user.html',{'user':user, 'logged_in':logged_in})
+            return render(request, 'created_user.html',{'user':user, 'logged_in':str(logged_in.content)})
 
             # if a GET (or any other method) we'll create a blank form
     else:
@@ -133,7 +132,7 @@ def create_shoe(request):
     else:
         form = CreateShoe(auto_id='%s')
 
-    return render(request, 'shoe_form.html', {'form': form, 'logged_in':logged_in})
+    return render(request, 'shoe_form.html', {'form': form, 'logged_in':logged_in.content})
 
 @csrf_exempt
 def login(request):
@@ -167,6 +166,6 @@ def logout(request):
         data={"auth":auth}
         logout = requests.post('http://exp-api:8000/logout/', data=data)
         # return HttpResponse(logout)
-        return render(request, 'logout.html')
+        return render(request, 'logout.html',{'logged_in':False})
     else:
         return render(request, 'welcome.html')

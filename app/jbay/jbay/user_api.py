@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from django.contrib.auth import hashers
-from django.http import Http404,HttpResponse
+from django.http import Http404,HttpResponse,JsonResponse
 from rest_framework import authentication, permissions
 from jbay.serializers import UserSerializer, AuthenticatorSerializer
 import os
@@ -114,8 +114,8 @@ def logged_in(request):
         try:
             logged_in = Authenticator.objects.get(authenticator=auth)
             if logged_in:
-                return HttpResponse(True)
+                return JsonResponse({'login':"True"})
             else:
-                return HttpResponse(False)
+                return JsonResponse({'login':"False"})
         except:
-            return HttpResponse(False)
+            return JsonResponse({'login':"False"})

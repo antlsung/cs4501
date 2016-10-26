@@ -87,9 +87,11 @@ def login(request):
 def logout(request):
     if request.method == 'POST':
         r = requests.post('http://models-api:8000/logout/',data=request.POST)
-        return HttpResponse(r)
+        return HttpResponse(r,status=r.status_code)
 
 def logged_in(request):
     if request.method == 'POST':
         r = requests.post('http://models-api:8000/logged_in/', data=request.POST)
-        return HttpResponse(r)
+        return JsonResponse(r.json())
+
+        # return HttpResponse(r,status=r.status_code)
