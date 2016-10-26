@@ -92,7 +92,11 @@ def create_shoe(request):
         form = CreateShoe(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=request.POST)
+            auth = request.COOKIES.get("auth")
+            data = request.POST.copy()
+            data["auth"] = auth
+            shoe_req = requests.post('http://exp-api:8000/create_shoe/',data=data)
+            return HttpResponse(shoe_req)
             shoe = shoe_req.json()
             # hi=json.load(shoe.json())
             date_time = shoe['published_date'].split('T')
@@ -122,7 +126,7 @@ def login(request):
             # user = user_req.json()
             # return HttpResponse(authenticator.text)
             response = HttpResponseRedirect('/')
-            response.set_cookie("auth",authenticator.content)
+            response.set_cookie("auth",authenticator.content[1:-1])
             # response.set_cookie("ben", "hello")
             return response
 

@@ -3,6 +3,7 @@ from django.http import JsonResponse
 import urllib.request
 import urllib.parse
 import json
+from django.http import HttpResponse
 
 def home_list(request):
     if request.method == 'GET':
@@ -63,10 +64,12 @@ def create_shoe(request):
         # brand = request.GET['brand']
         # params = {'id': id_num}
         r = requests.post('http://models-api:8000/add_shoes/',data=request.POST)
-        shoe_detail = r.json()
-        return JsonResponse(shoe_detail)
+        try:
+            shoe_detail = r.json()
+            return JsonResponse(shoe_detail)
+        except:
+            return HttpResponse(r)
 
-from django.http import HttpResponse
 
 def login(request):
     if request.method == 'POST':
