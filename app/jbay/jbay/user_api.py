@@ -90,8 +90,8 @@ def check_password(request):
             serializer = AuthenticatorSerializer(data=data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-                return HttpResponse(authenticator)
-            return HttpResponse("serializer not valid: " + serializer.errors)
+                return Response(str(authenticator))
+            return HttpResponse("Authenticator not saved")
 
         else:
-            return HttpResponse("hey")
+            return HttpResponse("Invalid password")

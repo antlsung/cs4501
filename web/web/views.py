@@ -118,10 +118,13 @@ def login(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            user_req = requests.post('http://exp-api:8000/login/',data=request.POST)
+            authenticator = requests.post('http://exp-api:8000/login/',data=request.POST)
             # user = user_req.json()
-            user = ""
-            return render(request, 'welcome.html',{'user':user})
+            # return HttpResponse(authenticator.text)
+            response = HttpResponseRedirect('/')
+            response.set_cookie("auth",authenticator.content)
+            # response.set_cookie("ben", "hello")
+            return response
 
             # if a GET (or any other method) we'll create a blank form
     else:
