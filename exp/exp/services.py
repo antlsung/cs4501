@@ -22,9 +22,12 @@ def item_detail(request):
         id_num = request.GET['id']
         # brand = request.GET['brand']
         params = {'id': id_num}
-        r = requests.get('http://models-api:8000/get_shoes',params=params)
-        shoe_detail = r.json()
-        return JsonResponse(shoe_detail)
+        r = requests.get('http://models-api:8000/get_shoes', params=params)
+        try:
+            shoe_detail = r.json()
+            return JsonResponse(shoe_detail)
+        except:
+            return HttpResponse(r,status=r.status_code)
 
 def user_detail(request):
     if request.method == 'GET':
@@ -32,8 +35,11 @@ def user_detail(request):
         # brand = request.GET['brand']
         params = {'id': id_num}
         r = requests.get('http://models-api:8000/get_users',params=params)
-        user_detail = r.json()
-        return JsonResponse(user_detail)
+        try:
+            user_detail = r.json()
+            return JsonResponse(user_detail)
+        except:
+            return HttpResponse(r,status=r.status_code)
 
 def delete_shoe(request):
     if request.method == 'POST':

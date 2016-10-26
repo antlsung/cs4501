@@ -30,8 +30,11 @@ def get_users(request):
         params = request.GET
         if 'id' in params:
             get_id = request.GET['id']
-            serializer = UserSerializer(users.objects.get(id=get_id))
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            try:
+                serializer = UserSerializer(users.objects.get(id=get_id))
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except:
+                return Response("No user exists for the query", status=status.HTTP_400_BAD_REQUEST)
         if 'name' in params:
             get_name = request.GET['name']
             serializer = UserSerializer(users.objects.filter(name=get_name),many=True)
@@ -70,7 +73,7 @@ def delete_users(request):
         delete_user = users.objects.get(id=post_id)
         deleted = delete_user
         delete_user.delete()
-        return Response("User: "+str(deleted.name) +" (ID: #"+ str(post_id) + ") has been deleted")
+        return Response("User: "+str(deleted.name) +" (ID: #"+ str(post_id) + ") has been deleted",status=status.HTTP_200_OK)
     return Response("Invalid Request",status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET','POST'])
