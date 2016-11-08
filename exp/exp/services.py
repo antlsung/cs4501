@@ -95,3 +95,8 @@ def logged_in(request):
         return JsonResponse(r.json())
 
         # return HttpResponse(r,status=r.status_code)
+
+def search(request):
+    if request.method == 'POST':
+        # r = requests.post('http://models-api:8000/logged_in/', data=request.POST)
+        return HttpResponse("search")
