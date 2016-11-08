@@ -82,22 +82,25 @@ def check_password(request):
         # return HttpResponse("in models layer check_password func")
         post_username = request.POST['username']
         post_password = request.POST['password']
-        user = users.objects.get(name=post_username)
-        check = hashers.check_password(post_password,user.password)
-        # return HttpResponse(check)
-        authenticator = ""
-        if check:
-            authenticator = hmac.new(key=settings.SECRET_KEY.encode('utf-8'), msg=os.urandom(32),
-                                         digestmod='sha256').hexdigest()
-            data = {"authenticator":authenticator, "user_id":post_username}
-            serializer = AuthenticatorSerializer(data=data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(str(authenticator))
-            return HttpResponse("Authenticator not saved")
+        try:
+            user = users.objects.get(name=post_username)
+            check = hashers.check_password(post_password,user.password)
+            # return HttpResponse(check)
+            authenticator = ""
+            if check:
+                authenticator = hmac.new(key=settings.SECRET_KEY.encode('utf-8'), msg=os.urandom(32),
+                                             digestmod='sha256').hexdigest()
+                data = {"authenticator":authenticator, "user_id":post_username}
+                serializer = AuthenticatorSerializer(data=data, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(str(authenticator))
+                return HttpResponse("Authenticator not saved")
 
-        else:
-            return HttpResponse("Invalid password")
+            else:
+                return HttpResponse("Invalid Login")
+        except:
+            return HttpResponse("Invalid Login")
 
 @api_view(['POST'])
 def logout(request):
