@@ -4,7 +4,7 @@ import urllib.request
 import urllib.parse
 import json
 from django.http import HttpResponse
-
+from kafka import KafkaProducer
 def home_list(request):
     if request.method == 'GET':
         resp = requests.get('http://models-api:8000/shoes')
@@ -55,23 +55,22 @@ def delete_user(request):
 
 def create_user(request):
     if request.method == 'POST':
-        # req = request.POST
-        # id_num = request.POST['id']
-        # brand = request.GET['brand']
-        # params = {'id': id_num}
         r = requests.post('http://models-api:8000/add_users/',data=request.POST)
         user_detail = r.json()
         return JsonResponse(user_detail)
 
 def create_shoe(request):
     if request.method == 'POST':
-        # req = request.POST
-        # id_num = request.POST['id']
-        # brand = request.GET['brand']
-        # params = {'id': id_num}
+
+        #tell model layer to create shoe
         r = requests.post('http://models-api:8000/add_shoes/',data=request.POST)
         try:
             shoe_detail = r.json()
+
+            # Send to kafka
+            producer = KafkaProducer(bootstrap_servers='kafka:9092')
+            shoe_new_listing = shoe_detail
+            producer.send('shoe-listings', json.dumps(shoe_new_listing).encode('utf-8'))
             return JsonResponse(shoe_detail)
         except:
             return HttpResponse(r)
