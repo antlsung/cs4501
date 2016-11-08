@@ -31,7 +31,9 @@ def home(request):
             # return HttpResponse(params['keywords'])
             search_resp = requests.get('http://exp-api:8000/search/',params=params)
             results = search_resp.json()
-            return render(request, 'search_results.html',{'login':login_bool,'results':results})
+            shoe_results = results['hits']['hits']['_source']
+            # return HttpResponse(hits)
+            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
 
         r = requests.get('http://exp-api:8000/home_list')
 
@@ -216,9 +218,16 @@ def logout(request):
     else:
         return render(request, 'welcome.html')
 
-# @csrf_exempt
-# def search(request):
-#     return HttpResponse('hi')
+@csrf_exempt
+def about(request):
+    try:
+        auth = request.COOKIES.get("auth")
+        data = {"auth": auth}
+        logged_in = requests.post('http://exp-api:8000/logout/', data=data)
+        login_bool = logged_in.json()
+    except:
+        login_bool = "False"
+    return render(request, 'about.html',{'login':login_bool})
 
     # try:
     #     auth = request.COOKIES.get("auth")
