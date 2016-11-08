@@ -97,6 +97,6 @@ def logged_in(request):
         # return HttpResponse(r,status=r.status_code)
 
 def search(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         # r = requests.post('http://models-api:8000/logged_in/', data=request.POST)
-        return HttpResponse("search")
+        return JsonResponse({'shoe':'air max'})

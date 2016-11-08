@@ -15,6 +15,7 @@ from django.views.decorators.csrf import csrf_exempt,ensure_csrf_cookie
 
 def home(request):
     if request.method == 'GET':
+        # COOKIE AUTHENTICATOR
         try:
             auth = request.COOKIES.get("auth")
             data = {"auth": auth}
@@ -22,6 +23,15 @@ def home(request):
             login_bool = logged_in.json()
         except:
             login_bool = "False"
+
+        # SEARCH BAR
+        if request.GET.get('search_box', None) is not None:
+            words = request.GET.get('search_box', None)
+            params = {'keywords': words}
+            # return HttpResponse(params['keywords'])
+            search_resp = requests.get('http://exp-api:8000/search/',params=params)
+            results = search_resp.json()
+            return render(request, 'search_results.html',{'login':login_bool,'results':results})
 
         r = requests.get('http://exp-api:8000/home_list')
 
@@ -174,15 +184,16 @@ def login(request):
             # redirect to a new URL:
             authenticator = requests.post('http://exp-api:8000/login/',data=request.POST)
             # user = user_req.json()
-            check = "Invalid Login"
+            invalid = "Invalid Login"
 
             response = authenticator.text
-            if response != check:
-                response = render(request, 'login_success.html', {'login':"True"})
+            if response != invalid:
+                response = render(request, 'login_success.html', {'login':True})
                 response.set_cookie("auth",authenticator.content[1:-1])
                 return response
-            response = render(request, 'login_fail.html', {'login':"False"})
-            return response
+            else:
+                response = render(request, 'login_fail.html', {'login':False})
+                return response
             # if a GET (or any other method) we'll create a blank form
     else:
         form = Login(auto_id='%s')
@@ -205,8 +216,10 @@ def logout(request):
     else:
         return render(request, 'welcome.html')
 
-@csrf_exempt
-def search(request):
+# @csrf_exempt
+# def search(request):
+#     return HttpResponse('hi')
+
     # try:
     #     auth = request.COOKIES.get("auth")
     #     data = {"auth": auth}
@@ -214,12 +227,13 @@ def search(request):
     #     login_bool = logged_in.json()
     # except:
     #     login_bool = "False"
-    return HttpResponse('hi')
+    # if request.method == 'GET':
 
-    if request.method == 'POST':
-        # return HttpResponse(logout)
-        return render(request, 'search_results.html',{'login':login_bool})
-    else:
-        form = Search(auto_id='%s')
-        return render(request, 'search_results.html',{'login':login_bool})
-    return HttpResponse('hi')
+
+    # if request.method == 'POST':
+    #     # return HttpResponse(logout)
+    #     return render(request, 'search_results.html',{'login':login_bool})
+    # else:
+    #     form = Search(auto_id='%s')
+    #     return render(request, 'search_results.html',{'login':login_bool})
+    # return HttpResponse('hi')

@@ -29,6 +29,6 @@ urlpatterns = [
     url(r'^create_shoe/', csrf_exempt(views.create_shoe), name='create_shoe'),
     url(r'^login',  csrf_exempt(views.login), name='login'),
     url(r'^logout',  csrf_exempt(views.logout), name='logout'),
-    url(r'^search',  csrf_exempt(views.search), name='search'),
+    # url(r'^search',  csrf_exempt(views.search), name='search'),
 
 ]
