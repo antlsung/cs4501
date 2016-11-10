@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^login/',csrf_exempt(services.login),name="login"),
     url(r'^logout/', csrf_exempt(services.logout), name="logout"),
     url(r'^logged_in/', csrf_exempt(services.logged_in), name="logged_in"),
+    url(r'^search/', csrf_exempt(services.search), name="search"),
 
 ]

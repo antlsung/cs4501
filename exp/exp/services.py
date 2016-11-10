@@ -4,6 +4,8 @@ import urllib.request
 import urllib.parse
 import json
 from django.http import HttpResponse
+from kafka import KafkaProducer
+from elasticsearch import Elasticsearch
 
 def home_list(request):
     if request.method == 'GET':
@@ -55,23 +57,22 @@ def delete_user(request):
 
 def create_user(request):
     if request.method == 'POST':
-        # req = request.POST
-        # id_num = request.POST['id']
-        # brand = request.GET['brand']
-        # params = {'id': id_num}
         r = requests.post('http://models-api:8000/add_users/',data=request.POST)
         user_detail = r.json()
         return JsonResponse(user_detail)
 
 def create_shoe(request):
     if request.method == 'POST':
-        # req = request.POST
-        # id_num = request.POST['id']
-        # brand = request.GET['brand']
-        # params = {'id': id_num}
+
+        #tell model layer to create shoe
         r = requests.post('http://models-api:8000/add_shoes/',data=request.POST)
         try:
             shoe_detail = r.json()
+
+            # Send to kafka
+            producer = KafkaProducer(bootstrap_servers='kafka:9092')
+            shoe_new_listing = shoe_detail
+            producer.send('shoe-listings', json.dumps(shoe_new_listing).encode('utf-8'))
             return JsonResponse(shoe_detail)
         except:
             return HttpResponse(r)
@@ -95,3 +96,13 @@ def logged_in(request):
         return JsonResponse(r.json())
 
         # return HttpResponse(r,status=r.status_code)
+
+def search(request):
+    if request.method == 'GET':
+        # r = requests.post('http://models-api:8000/logged_in/', data=request.POST)
+        es = Elasticsearch(['es'])
+        keywords = request.GET['keywords']
+
+        results = es.search(index='listing_index', body={'query': {'query_string': {'query':keywords}}, 'size': 10})
+        return JsonResponse(results)
+        # return JsonResponse({'shoe':'air max'})
