@@ -24,6 +24,7 @@ def home(request):
         except:
             login_bool = "False"
 
+
         # SEARCH BAR
         if request.GET.get('search_box', None) is not None:
             try:
@@ -33,8 +34,12 @@ def home(request):
                 search_resp = requests.get('http://exp-api:8000/search/',params=params)
                 results = search_resp.json()
                 shoe_results = results['hits']['hits']
+                search_shoes = []
+                for shoe in shoe_results:
+                    search_shoes.append(shoe['_source'])
+                # return HttpResponse(recent['source'])
                 # return HttpResponse(hits)
-                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+                return render(request, 'search_results.html',{'login':login_bool,'results':search_shoes})
             except:
                 shoe_results = ["No matches found"]
                 return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
@@ -66,7 +71,7 @@ def show_shoe(request):
         except:
             login_bool = "False"
 
-                # SEARCH BAR
+        # SEARCH BAR
         if request.GET.get('search_box', None) is not None:
             try:
                 words = request.GET.get('search_box', None)
@@ -75,8 +80,12 @@ def show_shoe(request):
                 search_resp = requests.get('http://exp-api:8000/search/',params=params)
                 results = search_resp.json()
                 shoe_results = results['hits']['hits']
+                search_shoes = []
+                for shoe in shoe_results:
+                    search_shoes.append(shoe['_source'])
+                # return HttpResponse(recent['source'])
                 # return HttpResponse(hits)
-                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+                return render(request, 'search_results.html',{'login':login_bool,'results':search_shoes})
             except:
                 shoe_results = ["No matches found"]
                 return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
@@ -105,7 +114,7 @@ def show_user(request):
         except:
             login_bool = "False"
 
-                # SEARCH BAR
+        # SEARCH BAR
         if request.GET.get('search_box', None) is not None:
             try:
                 words = request.GET.get('search_box', None)
@@ -114,8 +123,12 @@ def show_user(request):
                 search_resp = requests.get('http://exp-api:8000/search/',params=params)
                 results = search_resp.json()
                 shoe_results = results['hits']['hits']
+                search_shoes = []
+                for shoe in shoe_results:
+                    search_shoes.append(shoe['_source'])
+                # return HttpResponse(recent['source'])
                 # return HttpResponse(hits)
-                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+                return render(request, 'search_results.html',{'login':login_bool,'results':search_shoes})
             except:
                 shoe_results = ["No matches found"]
                 return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
@@ -149,8 +162,12 @@ def create_user(request):
             search_resp = requests.get('http://exp-api:8000/search/',params=params)
             results = search_resp.json()
             shoe_results = results['hits']['hits']
+            search_shoes = []
+            for shoe in shoe_results:
+                search_shoes.append(shoe['_source'])
+            # return HttpResponse(recent['source'])
             # return HttpResponse(hits)
-            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+            return render(request, 'search_results.html',{'login':login_bool,'results':search_shoes})
         except:
             shoe_results = ["No matches found"]
             return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
@@ -198,8 +215,12 @@ def create_shoe(request):
             search_resp = requests.get('http://exp-api:8000/search/',params=params)
             results = search_resp.json()
             shoe_results = results['hits']['hits']
+            search_shoes = []
+            for shoe in shoe_results:
+                search_shoes.append(shoe['_source'])
+            # return HttpResponse(recent['source'])
             # return HttpResponse(hits)
-            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+            return render(request, 'search_results.html',{'login':login_bool,'results':search_shoes})
         except:
             shoe_results = ["No matches found"]
             return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
