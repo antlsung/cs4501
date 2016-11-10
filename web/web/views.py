@@ -66,6 +66,20 @@ def show_shoe(request):
         except:
             login_bool = "False"
 
+                # SEARCH BAR
+        if request.GET.get('search_box', None) is not None:
+            try:
+                words = request.GET.get('search_box', None)
+                params = {'keywords': words}
+                # return HttpResponse(params['keywords'])
+                search_resp = requests.get('http://exp-api:8000/search/',params=params)
+                results = search_resp.json()
+                shoe_results = results['hits']['hits']
+                # return HttpResponse(hits)
+                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+            except:
+                shoe_results = ["No matches found"]
+                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
 
         id_num = request.GET['id']
         # brand = request.GET['brand']
@@ -91,6 +105,21 @@ def show_user(request):
         except:
             login_bool = "False"
 
+                # SEARCH BAR
+        if request.GET.get('search_box', None) is not None:
+            try:
+                words = request.GET.get('search_box', None)
+                params = {'keywords': words}
+                # return HttpResponse(params['keywords'])
+                search_resp = requests.get('http://exp-api:8000/search/',params=params)
+                results = search_resp.json()
+                shoe_results = results['hits']['hits']
+                # return HttpResponse(hits)
+                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+            except:
+                shoe_results = ["No matches found"]
+                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+
         id_num = request.GET['id']
         # brand = request.GET['brand']
 
@@ -103,16 +132,30 @@ def show_user(request):
 
 @csrf_exempt
 def create_user(request):
-    if request.method == 'POST':
-
+    try:
+        auth = request.COOKIES.get("auth")
+        data = {"auth": auth}
+        logged_in = requests.post('http://exp-api:8000/logged_in/', data=data)
+        login_bool = logged_in.json()
+    except:
+        login_bool = "False"
+        
+    # SEARCH BAR
+    if request.GET.get('search_box', None) is not None:
         try:
-            auth = request.COOKIES.get("auth")
-            data = {"auth": auth}
-            logged_in = requests.post('http://exp-api:8000/logged_in/', data=data)
-            login_bool = logged_in.json()
+            words = request.GET.get('search_box', None)
+            params = {'keywords': words}
+            # return HttpResponse(params['keywords'])
+            search_resp = requests.get('http://exp-api:8000/search/',params=params)
+            results = search_resp.json()
+            shoe_results = results['hits']['hits']
+            # return HttpResponse(hits)
+            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
         except:
-            login_bool = "False"
+            shoe_results = ["No matches found"]
+            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
 
+    if request.method == 'POST':
 
         # create a form instance and populate it with data from the request:
         form = CreateUser(request.POST)
@@ -145,6 +188,21 @@ def create_shoe(request):
         login_bool = logged_in.json()
     except:
         login_bool = "False"
+
+    # SEARCH BAR
+    if request.GET.get('search_box', None) is not None:
+        try:
+            words = request.GET.get('search_box', None)
+            params = {'keywords': words}
+            # return HttpResponse(params['keywords'])
+            search_resp = requests.get('http://exp-api:8000/search/',params=params)
+            results = search_resp.json()
+            shoe_results = results['hits']['hits']
+            # return HttpResponse(hits)
+            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+        except:
+            shoe_results = ["No matches found"]
+            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
 
     # return HttpResponse(logged_in)
 
@@ -228,10 +286,25 @@ def about(request):
     try:
         auth = request.COOKIES.get("auth")
         data = {"auth": auth}
-        logged_in = requests.post('http://exp-api:8000/logout/', data=data)
+        logged_in = requests.post('http://exp-api:8000/logged_in/', data=data)
         login_bool = logged_in.json()
     except:
         login_bool = "False"
+
+    # SEARCH BAR
+    if request.GET.get('search_box', None) is not None:
+        try:
+            words = request.GET.get('search_box', None)
+            params = {'keywords': words}
+            # return HttpResponse(params['keywords'])
+            search_resp = requests.get('http://exp-api:8000/search/',params=params)
+            results = search_resp.json()
+            shoe_results = results['hits']['hits']
+            # return HttpResponse(hits)
+            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+        except:
+            shoe_results = ["No matches found"]
+            return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
     return render(request, 'about.html',{'login':login_bool})
 
     # try:
