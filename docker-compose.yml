@@ -54,4 +54,6 @@ batch:
    links:
       - kafka:kafka
       - es:es
-   command: bash -c "python batch.py"
+   volumes:
+      - ~/cs4501/batch:/batch
+   command: bash -c "cd /batch; pwd; ls -a; python batch.py;"
