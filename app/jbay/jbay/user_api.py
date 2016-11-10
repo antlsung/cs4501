@@ -82,9 +82,16 @@ def check_password(request):
         # return HttpResponse("in models layer check_password func")
         post_username = request.POST['username']
         post_password = request.POST['password']
+        # return HttpResponse("hi1")
         try:
-            user = users.objects.get(name=post_username)
+            # return HttpResponse("hi2")
+            user = users.objects.filter(name=post_username)[0]
+            # return HttpResponse(post_password)
+            # return HttpResponse(hashers.make_password(post_password))
+
             check = hashers.check_password(post_password,user.password)
+            # return HttpResponse(check)
+
             # return HttpResponse(check)
             authenticator = ""
             if check:

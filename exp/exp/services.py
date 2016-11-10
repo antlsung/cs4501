@@ -5,6 +5,8 @@ import urllib.parse
 import json
 from django.http import HttpResponse
 from kafka import KafkaProducer
+from elasticsearch import Elasticsearch
+
 def home_list(request):
     if request.method == 'GET':
         resp = requests.get('http://models-api:8000/shoes')
@@ -98,4 +100,9 @@ def logged_in(request):
 def search(request):
     if request.method == 'GET':
         # r = requests.post('http://models-api:8000/logged_in/', data=request.POST)
+        es = Elasticsearch(['es'])
+        keywords = request.GET['keywords']
+
+        results = es.search(index='listing_index', body={'query': {'query_string': {'query':keywords}}, 'size': 10})
+        # return JsonResponse(results)
         return JsonResponse({'shoe':'air max'})

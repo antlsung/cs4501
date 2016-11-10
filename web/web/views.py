@@ -26,12 +26,19 @@ def home(request):
 
         # SEARCH BAR
         if request.GET.get('search_box', None) is not None:
-            words = request.GET.get('search_box', None)
-            params = {'keywords': words}
-            # return HttpResponse(params['keywords'])
-            search_resp = requests.get('http://exp-api:8000/search/',params=params)
-            results = search_resp.json()
-            return render(request, 'search_results.html',{'login':login_bool,'results':results})
+            try:
+                words = request.GET.get('search_box', None)
+                params = {'keywords': words}
+                # return HttpResponse(params['keywords'])
+                search_resp = requests.get('http://exp-api:8000/search/',params=params)
+                results = search_resp.json()
+                shoe_results = results['hits']['hits']
+                # return HttpResponse(hits)
+                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+            except:
+                shoe_results = ["No matches found"]
+                return render(request, 'search_results.html',{'login':login_bool,'results':shoe_results})
+
 
         r = requests.get('http://exp-api:8000/home_list')
 
@@ -111,9 +118,9 @@ def create_user(request):
         form = CreateUser(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            hash_pass = hashers.make_password(request.POST['password'])
+            # hash_pass = hashers.make_password(request.POST['password'])
             data = request.POST.copy()
-            data['password'] = hash_pass
+            # data['password'] = hash_pass
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
@@ -143,8 +150,8 @@ def create_shoe(request):
 
       # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # return HttpResponse(str(login_bool["login"]))
-        if str(login_bool["login"]) == "True":
+        # return HttpResponse(str(login_bool))
+        if str(login_bool) != "False" and str(login_bool['login']) != "False":
             # create a form instance and populate it with data from the request:
             form = CreateShoe(request.POST)
             # check whether it's valid:
@@ -216,9 +223,16 @@ def logout(request):
     else:
         return render(request, 'welcome.html')
 
-# @csrf_exempt
-# def search(request):
-#     return HttpResponse('hi')
+@csrf_exempt
+def about(request):
+    try:
+        auth = request.COOKIES.get("auth")
+        data = {"auth": auth}
+        logged_in = requests.post('http://exp-api:8000/logout/', data=data)
+        login_bool = logged_in.json()
+    except:
+        login_bool = "False"
+    return render(request, 'about.html',{'login':login_bool})
 
     # try:
     #     auth = request.COOKIES.get("auth")
