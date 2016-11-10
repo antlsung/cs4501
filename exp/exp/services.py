@@ -104,5 +104,5 @@ def search(request):
         keywords = request.GET['keywords']
 
         results = es.search(index='listing_index', body={'query': {'query_string': {'query':keywords}}, 'size': 10})
-        return JsonResponse(results)
+        # return JsonResponse(results)
         return JsonResponse({'shoe':'air max'})
