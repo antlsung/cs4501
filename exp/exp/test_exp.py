@@ -26,7 +26,7 @@ class TestExp(TestCase):
         search_shoes = []
         for shoe in shoe_results:
             search_shoes.append(shoe['_source'])
-        print(search_shoes[0]['shoe'])
+        # print(search_shoes[0]['shoe'])
         self.assertEqual(search_shoes[0]['shoe'],"air monarch")
 
 
