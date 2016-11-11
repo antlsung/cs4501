@@ -56,4 +56,4 @@ batch:
       - es:es
    volumes:
       - ~/cs4501/batch:/batch
-   command: bash -c "cd /batch; python batch.py;"
+   command: bash -c "cd /batch/batch; ls -a; python batch.py;"
