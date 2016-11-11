@@ -97,6 +97,7 @@ def show_shoe(request):
         shoe_req = requests.get('http://exp-api:8000/item_detail',params=params)
         shoe = shoe_req.json()
         # hi=json.load(shoe.json())
+        # return HttpResponse(shoe['published_date'])
         date_time = shoe['published_date'].split('T')
         date = date_time[0]
         time = date_time[1]
@@ -152,7 +153,7 @@ def create_user(request):
         login_bool = logged_in.json()
     except:
         login_bool = "False"
-        
+
     # SEARCH BAR
     if request.GET.get('search_box', None) is not None:
         try:
