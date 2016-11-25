@@ -4,7 +4,7 @@ python:
 # command to install dependencies
 sudo: required
 services:
-  -docker
+  - docker
 install:
 - sudo apt-get update
 - docker run hello-world
