@@ -6,7 +6,8 @@ sudo: required
 services:
   -docker
 before_install:
-- apt-get install docker-engine
+- sudo apt-get install docker-engine
+- sudo service docker start
 - pip install docker-compose
 - docker-compose up
 - docker exec -it cs4501_web_1 bash
