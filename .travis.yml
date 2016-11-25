@@ -6,10 +6,8 @@ sudo: required
 services:
   - docker
 install:
-- sudo apt-get update
-- docker run hello-world
-# # - sudo service docker start
-# - pip install docker-compose
+- docker pull mysql:5.7.14
+- docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.14
 - docker-compose up -d
 - docker ps
 - docker exec -it cs4501_web_1 bash
