@@ -10,9 +10,9 @@ install:
 - docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.14
 - docker-compose up -d
 - docker ps
-- docker exec -it cs4501_web_1 bash
+- docker exec cs4501_web_1 echo "cd /web;python manage.py test"
 # install: "pip install -r requirements.txt"
 # command to run tests
-script: "cd /web;python manage.py test"
+script: python manage.py test
 notifications:
   email: false
