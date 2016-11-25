@@ -5,10 +5,10 @@ python:
 sudo: required
 services:
   - docker
-install:
+before_install:
 - docker pull mysql:5.7.14
 - docker run --name mysql -d -e MYSQL\_ROOT\_PASSWORD='$3cureUS' -v ~/cs4501/db:/var/lib/mysql  mysql:5.7.14
-- docker-compose up 
+- docker-compose up -d
 - docker ps
 # install: "pip install -r requirements.txt"
 # command to run tests
