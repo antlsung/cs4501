@@ -6,9 +6,11 @@ sudo: required
 services:
   -docker
 before_install:
--pip install docker-compose
--docker-compose up
--docker exec -it cs4501_web_1 bash
+- pip install docker-compose
+- docker-compose up
+- docker exec -it cs4501_web_1 bash
 # install: "pip install -r requirements.txt"
 # command to run tests
 script: "cd /web;python manage.py test"
+notifications:
+  email: false
