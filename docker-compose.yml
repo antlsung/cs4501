@@ -6,7 +6,7 @@ models:
       - ~/build/antlsung/cs4501/app:/app
     ports:
       - "8001:8000"
-    command: bash -c "pip install djangorestframework; /app/jbay/manage.py makemigrations; /app/jbay/manage.py migrate; /app/jbay/manage.py loaddata shoe_data.json; mod_wsgi-express start-server --reload-on-changes /app/jbay/jbay/wsgi.py"
+    command: bash -c "pip install djangorestframework; cd /app;./manage.py makemigrations;./manage.py migrate;./manage.py loaddata shoe_data.json; mod_wsgi-express start-server --reload-on-changes /app/jbay/jbay/wsgi.py"
 
 exp:
    image: tp33/django
