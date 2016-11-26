@@ -15,7 +15,7 @@ before_install:
 # command to run tests
 script:
   - docker ps
-  - cd ~;ls -la
+  - ls -la
   - pwd
   - docker exec -it cs4501_web_1 bash -c "cd /web;./manage.py test"
   - docker exec -it cs4501_exp_1 bash -c "cd /exp;./manage.py test"
