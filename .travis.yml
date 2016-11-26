@@ -15,10 +15,10 @@ before_install:
 # command to run tests
 script:
   - docker ps
-  - ls -l
+  - cd ~;ls -la
   - pwd
-  - docker exec -it cs4501_web_1 sh -c "ls -la"
-  - docker exec -it cs4501_exp_1 sh -c "cd /exp;./manage.py test"
-  - docker exec -it cs4501_models_1 sh -c "cd /app;./manage.py test"
+  - docker exec -it cs4501_web_1 bash -c "cd /web;./manage.py test"
+  - docker exec -it cs4501_exp_1 bash -c "cd /exp;./manage.py test"
+  - docker exec -it cs4501_models_1 bash -c "cd /app;./manage.py test"
 notifications:
   email: false
