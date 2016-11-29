@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/antlsung/cs4501.svg?branch=master)](https://travis-ci.org/antlsung/cs4501)
+
 #Run Commands
 
 #Setting up your db
