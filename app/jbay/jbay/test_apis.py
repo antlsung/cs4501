@@ -35,11 +35,11 @@ class TestShoeApi(TestCase):
         data = json.loads(response.content.decode("utf-8"))
         self.assertEqual(response_code, 400)
 
-    def test_methodtoaddshoes(self):
-        response = self.client.post('/add_shoes/', {'shoe': 'clutchfit drive', 'brand': 'under armour', 'text': 'unit testing'}, format="json")
-        response_code = response.status_code
-        data = json.loads(response.content.decode("utf-8"))
-        self.assertEqual(response_code, 201)
+    # def test_methodtoaddshoes(self):
+    #     response = self.client.post('/add_shoes/', {'shoe': 'clutchfit drive', 'brand': 'under armour', 'text': 'unit testing'}, format="json")
+    #     response_code = response.status_code
+    #     data = json.loads(response.content.decode("utf-8"))
+    #     self.assertEqual(response_code, 201)
 
 
 
