@@ -3,10 +3,10 @@ models:
     external_links:
       -  mysql:db
     volumes:
-      - ~/build/antlsung/cs4501/app:/app
+      - ~/cs4501/app:/app
     ports:
       - "8001:8000"
-    command: bash -c "pip install djangorestframework; cd /app;./manage.py makemigrations;./manage.py migrate;./manage.py loaddata shoe_data.json; mod_wsgi-express start-server --reload-on-changes /app/jbay/jbay/wsgi.py"
+    command: bash -c "pip install djangorestframework; /app/jbay/manage.py makemigrations; /app/jbay/manage.py migrate; /app/jbay/manage.py loaddata shoe_data.json; mod_wsgi-express start-server --reload-on-changes /app/jbay/jbay/wsgi.py"
 
 exp:
    image: tp33/django
@@ -19,7 +19,7 @@ exp:
       - "8001"
       - "8000"
    volumes:
-      - ~/build/antlsung/cs4501/exp:/exp
+      - ~/cs4501/exp:/exp
    command: bash -c "pip install requests; cd /exp; mod_wsgi-express start-server --reload-on-changes /exp/exp/wsgi.py"
 
 web:
@@ -31,7 +31,7 @@ web:
     - "8002"
     - "8001"
   volumes:
-    - ~/build/antlsung/cs4501/web:/web
+    - ~/cs4501/web:/web
   command: bash -c "pip install djangorestframework; pip install requests; cd /web; mod_wsgi-express start-server --reload-on-changes /web/web/wsgi.py"
 
 kafka:
@@ -55,5 +55,5 @@ batch:
       - kafka:kafka
       - es:es
    volumes:
-      - ~/build/antlsung/cs4501/batch:/batch
+      - ~/cs4501/batch:/batch
    command: bash -c "cd /batch/batch; python batch.py;"
