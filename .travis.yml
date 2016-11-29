@@ -18,8 +18,8 @@ script:
   - docker ps
   - ls -la
   - pwd
-  - docker exec -it cs4501_web_1 bash -c "cd /web;./manage.py test"
-  - docker exec -it cs4501_exp_1 bash -c "cd /exp;./manage.py test"
+#  - docker exec -it cs4501_web_1 bash -c "cd /web;./manage.py test"
+#  - docker exec -it cs4501_exp_1 bash -c "cd /exp;./manage.py test"
   - docker exec -it cs4501_models_1 bash -c "cd /app/jbay;./manage.py test"
 notifications:
   email: false
