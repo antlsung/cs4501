@@ -16,7 +16,7 @@ install:
     "CREATE DATABASE cs4501 CHARACTER SET utf8;
     CREATE USER 'www'@'%' IDENTIFIED BY '\$3cureUS';
     GRANT ALL PRIVILEGES ON *.* TO 'www'@'%';"
-    
+
 before_script:
 - docker-compose -f docker-compose.yml -f docker-compose.ci.yml up -d
 #- docker-compose logs
